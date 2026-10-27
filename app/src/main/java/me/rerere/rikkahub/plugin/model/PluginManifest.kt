@@ -150,7 +150,12 @@ data class PluginToolDefinition(
     /**
      * 工具参数列表
      */
-    val parameters: List<PluginToolParameter> = emptyList()
+    val parameters: List<PluginToolParameter> = emptyList(),
+
+    /**
+     * 是否需要用户审批后才能执行（主动消息/后台场景会自动批准）
+     */
+    val needsApproval: Boolean? = null
 )
 
 /**
