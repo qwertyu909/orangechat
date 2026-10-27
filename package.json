@@ -1,4 +1,7 @@
 {
+  "name": "orangechat-monorepo",
+  "private": true,
+  "packages": [],
   "dependencies": {
     "@types/ink": "^2.0.3",
     "sharp": "^0.34.5"
