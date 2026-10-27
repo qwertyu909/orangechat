@@ -72,8 +72,16 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm@9
 
+      - name: Prepare web-ui standalone pnpm
+        run: |
+          rm -f pnpm-workspace.yaml package.json package-lock.json bun.lock
+          npm install -g pnpm@9
+          pnpm --version
+
       - name: Install web deps
         run: |
+          cd web-ui
+          rm -f pnpm-workspace.yaml
           pnpm install --no-frozen-lockfile
 
       - name: Build web UI
