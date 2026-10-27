@@ -11,6 +11,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: false
+          fetch-depth: 0
+
+      - name: Rewrite submodule URLs to HTTPS
+        run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+
+      - name: Init submodules
+        run: |
+          git submodule update --init --recursive --depth 1 || true
+          git submodule status
+          ls -la material3/material-color-utilities 2>/dev/null | head -20 || echo "M3 submodule missing"
+
+      - name: Fallback fetch material-color-utilities
+        run: |
+          if [ ! -d material3/material-color-utilities/kotlin ]; then
+            rm -rf material3/material-color-utilities
+            git clone --depth 1 https://github.com/material-foundation/material-color-utilities.git material3/material-color-utilities
+          fi
+          ls material3/material-color-utilities/kotlin | head -20
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
