@@ -74,7 +74,7 @@ jobs:
 
       - name: Install web deps
         run: |
-          cd web
+          cd web-ui
           pnpm install --no-frozen-lockfile
 
       - name: Build debug APK
